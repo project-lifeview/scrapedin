@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer')
+const chromeLambda = require("chrome-aws-lambda");
 const login = require('./login')
 const profile = require('./profile/profile')
 const logger = require('./logger')(__filename)
@@ -11,12 +11,12 @@ module.exports = async ({ cookies, email, password, isHeadless, hasToLog, hasToG
 
   let browser;
   if(endpoint){
-    browser = await puppeteer.connect({
+    browser = await chromeLambda.puppeteer.connect({
       browserWSEndpoint: endpoint,
     });
-  }else{
-    const args = Object.assign({ headless: isHeadless, args: ['--no-sandbox'] }, puppeteerArgs)
-    browser = await puppeteer.launch(args)
+  } else{
+    const args = Object.assign({ executablePath: await chromeLambda.executablePath, headless: isHeadless, args: ['--no-sandbox'] }, puppeteerArgs)
+    browser = await chromeLambda.puppeteer.launch(args)
   }
 
   if (cookies) {
