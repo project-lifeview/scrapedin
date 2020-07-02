@@ -4,9 +4,9 @@ const profile = require('./profile/profile')
 const logger = require('./logger')(__filename)
 
 module.exports = async ({ cookies, email, password, isHeadless, hasToLog, hasToGetContactInfo, puppeteerArgs, puppeteerAuthenticate, endpoint } = { isHeadless: true, hasToLog: false }) => {
-  if (!hasToLog) {
-    logger.stopLogging()
-  }
+  //  if (!hasToLog) {
+  //  logger.stopLogging()
+  //}
   logger.info('initializing')
 
   let browser;
